@@ -9,7 +9,7 @@
 #define APPLICATIONMANAGER_H_
 
 #include "stm32h7xx_hal.h"
-
+#include "applicationManager_Cfg.h"
 
 class ApplicationManager {
 
@@ -17,12 +17,17 @@ private:
 	//Variables
 	UART_HandleTypeDef* huart;
 
+	volatile uint8_t m_TxMsg[APPLLICATIONMANAGER_UART_MAXRCV_BYTES];
+	volatile uint8_t m_RxMsg[APPLLICATIONMANAGER_UART_MAXRCV_BYTES];
+
 	//APIs
 	uint8_t sendMessage(uint8_t* Msg, const uint8_t size);
-	uint8_t recvMessage(void);
 public:
-	ApplicationManager(UART_HandleTypeDef* huart);
+	ApplicationManager(void);
 	virtual ~ApplicationManager();
+
+	void init(UART_HandleTypeDef* huart);
+	void recvMessage(void);
 
 	uint8_t executeMainFunction(void);
 

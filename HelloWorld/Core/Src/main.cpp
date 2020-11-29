@@ -76,7 +76,7 @@ UART_HandleTypeDef huart3;
 PCD_HandleTypeDef hpcd_USB_OTG_FS;
 
 /* USER CODE BEGIN PV */
-
+ApplicationManager appMgr;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -92,7 +92,6 @@ static void MX_TIM1_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
 /* USER CODE END 0 */
 
 /**
@@ -128,7 +127,7 @@ int main(void)
   MX_USB_OTG_FS_PCD_Init();
   MX_TIM1_Init();
   /* USER CODE BEGIN 2 */
-  ApplicationManager appMgr(&huart3);
+  appMgr.init(&huart3);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -136,7 +135,7 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-
+	  appMgr.executeMainFunction();
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -363,11 +362,11 @@ static void MX_USART3_UART_Init(void)
   {
     Error_Handler();
   }
-  if (HAL_UARTEx_SetTxFifoThreshold(&huart3, UART_TXFIFO_THRESHOLD_1_8) != HAL_OK)
+  if (HAL_UARTEx_SetTxFifoThreshold(&huart3, UART_TXFIFO_THRESHOLD_1_4) != HAL_OK)
   {
     Error_Handler();
   }
-  if (HAL_UARTEx_SetRxFifoThreshold(&huart3, UART_RXFIFO_THRESHOLD_1_8) != HAL_OK)
+  if (HAL_UARTEx_SetRxFifoThreshold(&huart3, UART_TXFIFO_THRESHOLD_1_4) != HAL_OK)
   {
     Error_Handler();
   }
